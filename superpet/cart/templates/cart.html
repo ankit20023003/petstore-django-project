@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% load custom_filters%}
+
+{% block content%}
+
+<div class="row row-cols-1 row-cols-md-2 g-4">
+
+    <div class="col">
+
+        {% for cartitem in cartitems%}
+
+        <div class="card mb-3" style="max-width: 540px;">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="{{cartitem.product.product_picture.url}}" class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">{{cartitem.product.product_name}}</h5>
+                        <p class="card-text">price:{{cartitem.product.product_price}}</p>
+                        <p class="card-text"><small class="text-muted">{{cartitem.quantity}}</small></p>
+
+                        <form action="{% url 'update_cart' cartitem.id %}">
+
+                            <button type="button" onclick="updatequantity(-1,{{cartitem.id}})">-</button>
+                            <input type="number" name="quantity" id="quantity{{cartitem.id}}"
+                                value="{{cartitem.quantity}}">
+                            <button type="button" onclick="updatequantity(1,{{cartitem.id}})">+</button>
+
+                            <button type="submit">update</button>
+
+
+
+                        </form>
+                        <a class="btn btn-danger" href="{% url 'remove_from_cart' cartitem.id %}"
+                            role="button">REMOVE</a>
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        {% endfor%}
+    </div>
+
+    <div class="col">
+        <table border="1"  class="table">
+            <tr>
+                <th scope="col">product_name</th>
+                <th scope="col">product_price</th>
+                <th scope="col">product_quantity</th>
+                <th scope="col">Amount</th>
+            </tr>
+
+            {% for cartitem in cartitems %}
+            <tr>
+                <td scope="col">{{cartitem.product.product_name}}</td>
+                <td>{{cartitem.product.product_price}}</td>
+                <td>{{cartitem.quantity}}</td>
+                <td>{{cartitem.product.product_price|multiply:cartitem.quantity}}</td>
+            </tr>
+
+            {% endfor%}
+        </table>
+        <h1 class="bg-warning">total:{{total}}</h1>
+        <a class="btn btn-primary" href="{% url 'checkout'%}" role="button">CheckOut</a>
+
+
+    </div>
+</div>
+
+
+
+{% endblock%}

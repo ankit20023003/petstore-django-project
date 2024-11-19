@@ -1,0 +1,12 @@
+{% extends "base.html"%}
+
+{% block content%}
+<form method="post">
+   {% csrf_token%}
+    do you want to delete product
+
+    <button type="submit">confirm</button>
+
+</form>
+
+{% endblock%}
