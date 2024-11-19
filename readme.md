@@ -3,7 +3,7 @@
 
 # petstore 
 
-# Frontend : HTML CSS  BOOTSTRAP
+# Frontend : HTML , CSS, BOOTSTRAP
 
 # Backend : django/python JAVASCRIPT
 
